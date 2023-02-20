@@ -13,6 +13,14 @@ resource "aws_ecs_task_definition" "my_first_task" {
           "hostPort": 80
         }
       ],
+      "environment": [
+          {
+            "host": "${var.db_url}",
+            "port": ${var.db_port},
+            "user": "${var.db_user}",
+            "password": "${var.db_password}"
+          }
+      ],
       "memory": 512,
       "cpu": 256
     }
