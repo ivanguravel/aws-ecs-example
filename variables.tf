@@ -11,5 +11,5 @@ variable "db_port" {
 }
 
 variable "db_user" {
-  type = number
+  type = string
 }
