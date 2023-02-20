@@ -21,8 +21,8 @@ resource "aws_ecs_task_definition" "my_first_task" {
             "password": "${var.db_password}"
           }
       ],
-      "memory": 2048,
-      "cpu": 2
+      "memory": 512,
+      "cpu": 256
     }
   ]
   DEFINITION
