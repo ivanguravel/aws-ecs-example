@@ -15,10 +15,20 @@ resource "aws_ecs_task_definition" "my_first_task" {
       ],
       "environment": [
           {
-            "host": "${var.db_url}",
-            "port": ${var.db_port},
-            "user": "${var.db_user}",
-            "password": "${var.db_password}"
+               "name": "host",
+               "value": "${var.db_url}"
+          },
+          {
+               "name": "port",
+               "value": "${var.db_port}"
+          },
+          {
+               "name": "user",
+               "value": "${var.db_user}"
+          },
+          {
+            "name": "password",
+            "value": "${var.db_password}"
           }
       ],
       "memory": 512,
