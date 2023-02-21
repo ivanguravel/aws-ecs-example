@@ -15,14 +15,12 @@ resource "aws_ecs_task_definition" "my_first_task" {
       ],
       "mountPoints": [
           {
-              "sourceVolume": "vol",
               "containerPath": "/srv/app",
               "readOnly": false
           }
       ],
       "volumes": [
         {
-            "name": "vol",
             "efsVolumeConfiguration": {
                 "fileSystemId": "fs-0ac91b1a06355128c",
                 "rootDirectory": "/"
