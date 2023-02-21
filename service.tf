@@ -5,12 +5,28 @@ resource "aws_ecs_task_definition" "my_first_task" {
   [
     {
       "name": "my-first-task",
-      "image": "kennethreitz/httpbin",
+      "image": "strapi/strapi",
       "essential": true,
       "portMappings": [
         {
-          "containerPort": 80,
-          "hostPort": 80
+          "containerPort": 1337,
+          "hostPort": 1337
+        }
+      ],
+      "mountPoints": [
+          {
+              "sourceVolume": "vol",
+              "containerPath": "/srv/app",
+              "readOnly": false
+          }
+      ],
+      "volumes": [
+        {
+            "name": "vol",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0ac91b1a06355128c",
+                "rootDirectory": "/"
+            }
         }
       ],
       "environment": [
