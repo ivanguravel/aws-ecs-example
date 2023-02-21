@@ -24,26 +24,34 @@ resource "aws_ecs_task_definition" "my_first_task" {
         "logDriver": "awslogs",
         "options": {
             "awslogs-create-group": "true",
-            "awslogs-group": "/ecs/strapi1",
+            "awslogs-group": "/ecs/my-first-service",
             "awslogs-region": "eu-west-2",
             "awslogs-stream-prefix": "ecs"
          }
       },
       "environment": [
           {
-               "name": "host",
+               "name": "DATABASE_CLIENT",
+               "value": "mysql"
+          },
+          {
+               "name": "DATABASE_NAME",
+               "value": "mysql"
+          },
+          {
+               "name": "DATABASE_HOST",
                "value": "${var.db_url}"
           },
           {
-               "name": "port",
+               "name": "DATABASE_PORT",
                "value": "${var.db_port}"
           },
           {
-               "name": "user",
+               "name": "DATABASE_USERNAME",
                "value": "${var.db_user}"
           },
           {
-            "name": "password",
+            "name": "DATABASE_PASSWORD",
             "value": "${var.db_password}"
           }
       ],
