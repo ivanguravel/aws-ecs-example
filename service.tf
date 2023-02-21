@@ -15,17 +15,10 @@ resource "aws_ecs_task_definition" "my_first_task" {
       ],
       "mountPoints": [
           {
+              "sourceVolume": "vol",
               "containerPath": "/srv/app",
               "readOnly": false
           }
-      ],
-      "volumes": [
-        {
-            "efsVolumeConfiguration": {
-                "fileSystemId": "fs-0ac91b1a06355128c",
-                "rootDirectory": "/"
-            }
-        }
       ],
       "environment": [
           {
@@ -55,6 +48,21 @@ resource "aws_ecs_task_definition" "my_first_task" {
   memory                   = 512         # Specifying the memory our container requires
   cpu                      = 256         # Specifying the CPU our container requires
   execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole.arn}"
+
+  volume {
+    name = "vol"
+
+    efs_volume_configuration {
+      file_system_id          = "fs-0ac91b1a06355128c"
+      root_directory          = "/opt/data"
+      transit_encryption      = "ENABLED"
+      transit_encryption_port = 2999
+#      authorization_config {
+#        access_point_id = aws_efs_access_point.test.id
+#        iam             = "ENABLED"
+#      }
+    }
+  }
 }
 
 resource "aws_ecs_service" "my_first_service" {
