@@ -20,6 +20,15 @@ resource "aws_ecs_task_definition" "my_first_task" {
               "readOnly": false
           }
       ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+            "awslogs-create-group": "true",
+            "awslogs-group": "/ecs/strapi1",
+            "awslogs-region": "eu-west-2",
+            "awslogs-stream-prefix": "ecs"
+         }
+      },
       "environment": [
           {
                "name": "host",
