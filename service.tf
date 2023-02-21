@@ -38,15 +38,15 @@ resource "aws_ecs_task_definition" "my_first_task" {
             "value": "${var.db_password}"
           }
       ],
-      "memory": 512,
-      "cpu": 256
+      "memory": 3072,
+      "cpu": 1024
     }
   ]
   DEFINITION
   requires_compatibilities = ["FARGATE"] # Stating that we are using ECS Fargate
   network_mode             = "awsvpc"    # Using awsvpc as our network mode as this is required for Fargate
-  memory                   = 512         # Specifying the memory our container requires
-  cpu                      = 256         # Specifying the CPU our container requires
+  memory                   = 3072         # Specifying the memory our container requires
+  cpu                      = 1024         # Specifying the CPU our container requires
   execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole.arn}"
 
   volume {
@@ -54,13 +54,7 @@ resource "aws_ecs_task_definition" "my_first_task" {
 
     efs_volume_configuration {
       file_system_id          = "fs-0ac91b1a06355128c"
-      root_directory          = "/opt/data"
-      transit_encryption      = "ENABLED"
-      transit_encryption_port = 2999
-#      authorization_config {
-#        access_point_id = aws_efs_access_point.test.id
-#        iam             = "ENABLED"
-#      }
+      root_directory          = "/"
     }
   }
 }
